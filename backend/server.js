@@ -46,17 +46,19 @@ app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 
-// --- SERVE FRONTEND STATIC FILES ---
+// --- DEPLOYMENT SETUP ---
 const frontendDist = path.join(__dirname, '../frontend/dist');
 app.use(express.static(frontendDist));
 
-// --- CATCH-ALL ROUTE FOR REACT (Non-API routes) ---
+// React Fallback Route (Express 4.x compatible)
 app.get('*', (req, res) => {
-    // Prevent catching API routes
+    // Skip API routes so they don't return HTML
     if (req.path.startsWith('/api')) {
         return res.status(404).json({ message: 'API route not found' });
     }
-    res.sendFile(path.join(frontendDist, 'index.html'));
+
+    const indexHtml = path.join(frontendDist, 'index.html');
+    res.sendFile(indexHtml);
 });
 
 // --- START SERVER ---
