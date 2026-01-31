@@ -18,7 +18,7 @@ const connectDB = async () => {
       await mongoose.connect(mongoURI, { serverSelectionTimeoutMS: 2000 });
       console.log(`MongoDB Connected: ${mongoose.connection.host}`);
     } catch (err) {
-      console.log("Local MongoDB not reachable, starting In-Memory MongoDB...");
+      console.log("Local MongoDB not reachable (Error: " + err.message + "), starting In-Memory MongoDB...");
       mongod = await MongoMemoryServer.create();
       mongoURI = mongod.getUri();
       await mongoose.connect(mongoURI);

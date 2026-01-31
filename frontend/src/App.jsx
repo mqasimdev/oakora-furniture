@@ -11,6 +11,9 @@ import RegisterPage from './pages/RegisterPage';
 import ShippingPage from './pages/ShippingPage';
 import PlaceOrderPage from './pages/PlaceOrderPage';
 import ProfilePage from './pages/ProfilePage';
+import AdminProductListPage from './pages/AdminProductListPage';
+import AdminProductCreatePage from './pages/AdminProductCreatePage';
+import AdminProductEditPage from './pages/AdminProductEditPage';
 import styled from 'styled-components';
 
 const Main = styled.main`
@@ -32,6 +35,10 @@ function App() {
           <Route path="/shipping" element={<ShippingPage />} />
           <Route path="/placeorder" element={<PlaceOrderPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+
+          <Route path="/admin/productlist" element={<AdminProductListPage />} />
+          <Route path="/admin/product/create" element={<AdminProductCreatePage />} />
+          <Route path="/admin/product/:id/edit" element={<AdminProductEditPage />} />
         </Routes>
       </Main>
       <Footer />

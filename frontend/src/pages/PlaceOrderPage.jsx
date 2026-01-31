@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import CartContext from '../context/CartContext';
 import UserContext from '../context/UserContext';
+import { BASE_URL } from '../config';
 
 const Container = styled.div`
   max-width: 1200px;
@@ -58,7 +59,7 @@ const Item = styled.div`
   
   a {
     font-weight: 500;
-      color: var(--text-color);
+        color: var(--text-color);
   }
 `;
 
@@ -127,7 +128,7 @@ const PlaceOrderPage = () => {
             };
 
             await axios.post(
-                'http://localhost:5000/api/orders',
+                `${BASE_URL}/api/orders`,
                 {
                     orderItems: cartItems,
                     shippingAddress,

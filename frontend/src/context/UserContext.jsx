@@ -1,6 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
+import { BASE_URL } from '../config';
+
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
@@ -18,7 +20,7 @@ export const UserProvider = ({ children }) => {
                 },
             };
             const { data } = await axios.post(
-                'http://localhost:5000/api/users/login',
+                `${BASE_URL}/api/users/login`,
                 { email, password },
                 config
             );
@@ -43,7 +45,7 @@ export const UserProvider = ({ children }) => {
                 },
             };
             const { data } = await axios.post(
-                'http://localhost:5000/api/users',
+                `${BASE_URL}/api/users`,
                 { name, email, password },
                 config
             );

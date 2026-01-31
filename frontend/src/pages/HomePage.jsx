@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { BASE_URL } from '../config';
 import ProductCard from '../components/ProductCard';
 
 const Hero = styled.section`
@@ -123,7 +124,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/products?pageNumber=1');
+        const { data } = await axios.get(`${BASE_URL}/api/products?pageNumber=1`);
         setProducts(data.products.slice(0, 8)); // Just show 8
       } catch (error) {
         console.error(error);
@@ -135,14 +136,14 @@ const HomePage = () => {
   return (
     <>
       <Hero>
-        <HeroContent>
+        <HeroContent className="fade-in">
           <h1>Modern British Furniture Design</h1>
           <p>Curated collections for every room. Quality craftsmanship delivered to your door.</p>
           <PrimaryButton to="/shop">Shop Collection</PrimaryButton>
         </HeroContent>
       </Hero>
 
-      <div className="container">
+      <div className="container fade-in">
         <Section>
           <SectionTitle>Shop by Category</SectionTitle>
           <CategoryGrid>

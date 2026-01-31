@@ -66,6 +66,15 @@ const GlobalStyle = createGlobalStyle`
   .my-1 { margin: 1rem 0; }
   .my-2 { margin: 2rem 0; }
   .py-2 { padding: 2rem 0; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
 `;
 
 export default GlobalStyle;

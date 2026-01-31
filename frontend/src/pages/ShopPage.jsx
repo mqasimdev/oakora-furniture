@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
+import { BASE_URL } from '../config';
 import ProductCard from '../components/ProductCard';
 
 const Container = styled.div`
@@ -112,7 +113,7 @@ const ShopPage = () => {
         const fetchProducts = async () => {
             setLoading(true);
             try {
-                let url = `http://localhost:5000/api/products?pageNumber=${page}`;
+                let url = `${BASE_URL}/api/products?pageNumber=${page}`;
                 if (selectedCategory) url += `&category=${selectedCategory}`;
                 if (searchParam) url += `&keyword=${searchParam}`;
 
@@ -136,7 +137,7 @@ const ShopPage = () => {
     };
 
     return (
-        <Container>
+        <Container className="fade-in">
             <Header>
                 <Title>{selectedCategory || 'All Products'}</Title>
             </Header>
@@ -178,7 +179,7 @@ const ShopPage = () => {
                         <div>No products found.</div>
                     ) : (
                         <>
-                            <ProductGrid>
+                            <ProductGrid className="fade-in">
                                 {products.map(product => (
                                     <ProductCard key={product._id} product={product} />
                                 ))}

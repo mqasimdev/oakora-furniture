@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../context/UserContext';
+import { BASE_URL } from '../config';
 import { FaTimes } from 'react-icons/fa';
 
 const Container = styled.div`
@@ -82,7 +83,7 @@ const ProfilePage = () => {
                         Authorization: `Bearer ${userInfo.token}`,
                     },
                 };
-                const { data } = await axios.get('http://localhost:5000/api/orders/myorders', config);
+                const { data } = await axios.get(`${BASE_URL}/api/orders/myorders`, config);
                 setOrders(data);
             } catch (error) {
                 console.error(error);

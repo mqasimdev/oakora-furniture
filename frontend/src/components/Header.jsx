@@ -142,6 +142,7 @@ const Header = () => {
             <MenuItem><Link to="/shop?category=beds">Beds</Link></MenuItem>
             <MenuItem><Link to="/shop?category=sofas">Sofas</Link></MenuItem>
             <MenuItem><Link to="/shop?category=dining">Dining</Link></MenuItem>
+            <MenuItem><Link to="/shop?category=wardrobes">Wardrobes</Link></MenuItem>
           </Menu>
 
           <IconGroup>
@@ -157,6 +158,9 @@ const Header = () => {
                 <FaUser /> <span>{userInfo.name.split(' ')[0]}</span>
                 <DropdownMenu className="dropdown">
                   <Link to="/profile">Profile</Link>
+                  {userInfo.isAdmin && (
+                    <Link to="/admin/productlist">Admin Dashboard</Link>
+                  )}
                   <button onClick={logout}>Logout</button>
                 </DropdownMenu>
               </UserDropdown>

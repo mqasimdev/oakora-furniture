@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { BASE_URL } from '../config';
 import CartContext from '../context/CartContext';
 import { FaTruck, FaUndo, FaShieldAlt } from 'react-icons/fa';
 
@@ -128,84 +129,84 @@ const FeatureItem = styled.div`
 `;
 
 const ProductPage = () => {
-    const { id } = useParams();
-    const navigate = useNavigate();
-    const [product, setProduct] = useState({});
-    const [qty, setQty] = useState(1);
-    const { addToCart } = useContext(CartContext);
-    const [loading, setLoading] = useState(true);
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [product, setProduct] = useState({});
+  const [qty, setQty] = useState(1);
+  const { addToCart } = useContext(CartContext);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchProduct = async () => {
-            try {
-                const { data } = await axios.get(`http://localhost:5000/api/products/${id}`);
-                setProduct(data);
-                setLoading(false);
-            } catch (error) {
-                console.error(error);
-                setLoading(false);
-            }
-        };
-        fetchProduct();
-    }, [id]);
-
-    const handleAddToCart = () => {
-        addToCart(product, Number(qty));
-        navigate('/cart');
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const { data } = await axios.get(`${BASE_URL}/api/products/${id}`);
+        setProduct(data);
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      }
     };
+    fetchProduct();
+  }, [id]);
 
-    if (loading) return <div className="container py-2">Loading...</div>;
+  const handleAddToCart = () => {
+    addToCart(product, Number(qty));
+    navigate('/cart');
+  };
 
-    return (
-        <Container>
-            <ProductGrid>
-                <ImageSection>
-                    <img src={product.imageURL} alt={product.name} />
-                </ImageSection>
-                <InfoSection>
-                    <Category>{product.category}</Category>
-                    <Title>{product.name}</Title>
-                    <Price>£{product.priceGBP?.toFixed(2)}</Price>
-                    <Description>{product.description}</Description>
+  if (loading) return <div className="container py-2">Loading...</div>;
 
-                    <MetaData>
-                        <p><strong>SKU:</strong> {product.sku || 'N/A'}</p>
-                        <p><strong>Material:</strong> {product.material || 'Standard'}</p>
-                        <p><strong>Dimensions:</strong> {product.dimensions || 'Standard'}</p>
-                        <p><strong>Availability:</strong> {product.countInStock > 0 ? 'In Stock' : 'Out of Stock'}</p>
-                    </MetaData>
+  return (
+    <Container>
+      <ProductGrid>
+        <ImageSection>
+          <img src={product.imageURL} alt={product.name} />
+        </ImageSection>
+        <InfoSection>
+          <Category>{product.category}</Category>
+          <Title>{product.name}</Title>
+          <Price>£{product.priceGBP?.toFixed(2)}</Price>
+          <Description>{product.description}</Description>
 
-                    {product.countInStock > 0 && (
-                        <AddToCartSection>
-                            <Select value={qty} onChange={(e) => setQty(e.target.value)}>
-                                {[...Array(product.countInStock).keys()].slice(0, 10).map((x) => (
-                                    <option key={x + 1} value={x + 1}>
-                                        {x + 1}
-                                    </option>
-                                ))}
-                            </Select>
-                            <Button onClick={handleAddToCart}>Add to Cart</Button>
-                        </AddToCartSection>
-                    )}
+          <MetaData>
+            <p><strong>SKU:</strong> {product.sku || 'N/A'}</p>
+            <p><strong>Material:</strong> {product.material || 'Standard'}</p>
+            <p><strong>Dimensions:</strong> {product.dimensions || 'Standard'}</p>
+            <p><strong>Availability:</strong> {product.countInStock > 0 ? 'In Stock' : 'Out of Stock'}</p>
+          </MetaData>
 
-                    <Features>
-                        <FeatureItem>
-                            <FaTruck />
-                            <p>Fast UK Delivery</p>
-                        </FeatureItem>
-                        <FeatureItem>
-                            <FaUndo />
-                            <p>30 Day Returns</p>
-                        </FeatureItem>
-                        <FeatureItem>
-                            <FaShieldAlt />
-                            <p>5 Year Warranty</p>
-                        </FeatureItem>
-                    </Features>
-                </InfoSection>
-            </ProductGrid>
-        </Container>
-    );
+          {product.countInStock > 0 && (
+            <AddToCartSection>
+              <Select value={qty} onChange={(e) => setQty(e.target.value)}>
+                {[...Array(product.countInStock).keys()].slice(0, 10).map((x) => (
+                  <option key={x + 1} value={x + 1}>
+                    {x + 1}
+                  </option>
+                ))}
+              </Select>
+              <Button onClick={handleAddToCart}>Add to Cart</Button>
+            </AddToCartSection>
+          )}
+
+          <Features>
+            <FeatureItem>
+              <FaTruck />
+              <p>Fast UK Delivery</p>
+            </FeatureItem>
+            <FeatureItem>
+              <FaUndo />
+              <p>30 Day Returns</p>
+            </FeatureItem>
+            <FeatureItem>
+              <FaShieldAlt />
+              <p>5 Year Warranty</p>
+            </FeatureItem>
+          </Features>
+        </InfoSection>
+      </ProductGrid>
+    </Container>
+  );
 };
 
 export default ProductPage;
