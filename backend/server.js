@@ -44,10 +44,6 @@ app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 
-app.get('/', (req, res) => {
-    res.send('API is running...');
-});
-
 // --- DEPLOYMENT SETUP ---
 const __dirname_backend = path.resolve(); // Resolves to backend folder usually if running from there, but we need root context often.
 // Actually path.resolve() in Node depends on CWD.
