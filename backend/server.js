@@ -58,7 +58,8 @@ const __dirname_backend = path.resolve(); // Resolves to backend folder usually 
 // Serve Frontend Static Asssets
 app.use(express.static(path.join(__dirname_backend, '../frontend/dist')));
 
-app.get('*', (req, res) => {
+// Use Regex wildcard to avoid 'Missing parameter name' error in Express 5
+app.get(/.*/, (req, res) => {
     // If route isn't an API route, send index.html
     // Verify file exists first to avoid crashing
     const indexPath = path.resolve(__dirname_backend, '../frontend/dist', 'index.html');
