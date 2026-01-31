@@ -1,0 +1,16 @@
+{
+    "name": "oakora-furniture-app",
+    "version": "1.0.0",
+    "description": "Premium British Furniture E-commerce",
+    "scripts": {
+        "start": "node backend/server.js",
+        "build": "npm install && npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
+        "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\""
+    },
+    "dependencies": {
+        "concurrently": "^8.0.0"
+    },
+    "engines": {
+        "node": ">=14.0.0"
+    }
+}
